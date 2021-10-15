@@ -36,6 +36,16 @@ const App = () => {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
 
+  const formSubmit = () => {
+    const newPizza = {
+      name: formValues.name.trim(),
+      size: formValues.size,
+      toppings: ['pepperoni', 'sausage', 'mushrooms', 'jalapenos', 'olives']
+      .filter(toppings => !!formValues[toppings])
+    }
+    postNewPizza(newPizza);
+  }
+
   const postNewPizza = newPizza => {
     axios.post('https://reqres.in/api/orders', newPizza)
     .then(res => { 
@@ -61,15 +71,7 @@ const App = () => {
       })
     }
 
-    const formSubmit = () => {
-      const newPizza = {
-        name: formValues.name.trim(),
-        size: formValues.size,
-        toppings: ['pepperoni', 'sausage', 'mushrooms', 'jalapenos', 'olives']
-        .filter(toppings => !!formValues[toppings])
-      }
-      postNewPizza(newPizza);
-    }
+    
     useEffect (() => {
       schema.isValid(formValues).then(valid => setDisabled(!valid))
     }, [formValues])
@@ -95,7 +97,7 @@ const App = () => {
           errors={formErrors}
           />
         </Route>
-        <Route path="/pizza/orderconfirmation">
+        <Route path="/orderconfirmation">
           {pizza.map((order, idx) => {
             return (
               <OrderConfirmation id="pizza-order" key={order.idx} details={order} />

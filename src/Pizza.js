@@ -6,7 +6,7 @@ export default function Pizza(props) {
     const { values, submit, change, errors, disabled, } = props
     const onSubmit = evt => {
         evt.preventDefault();
-        // submit()
+        submit();
         // values.id ? putPizza(values) : postPizza(values)
     }
     const onChange = evt => {
@@ -14,7 +14,7 @@ export default function Pizza(props) {
         const valueToUse = type === 'checkbox' ? checked : value;
         change(name, valueToUse);
     }
-    const history = useHistory();
+   
 
 
     return (
@@ -103,7 +103,6 @@ export default function Pizza(props) {
             <button id="order-button" 
             disabled={disabled}
             type="submit"
-            onClick={evt => { history.push('/pizza-order'); submit(evt); }}
             >Add to Order</button>
         </form>
     )
