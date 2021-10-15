@@ -64,39 +64,39 @@ const App = () => {
       const newPizza = {
         name: formValues.name.trim(),
         size: formValues.size,
-        toppings: ['pepperone', 'sausage', 'mushrooms', 'jalapenos', 'olives']
+        toppings: ['pepperoni', 'sausage', 'mushrooms', 'jalapenos', 'olives']
         .filter(toppings => !!formValues[toppings])
       }
       postNewPizza(newPizza);
     }
-    // useEffect (() => {
-    //   isSchema.isValid(formValues).then(valid => setDisabled(!valid))
-    // }, [formValues])
+    useEffect (() => {
+      schema.isValid(formValues).then(valid => setDisabled(!valid))
+    }, [formValues])
 
   return (
     <>
     
       <header>
-      <h1>Lambda Eats</h1>
-        <nav className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/pizza" id="pizza-form">Order</Link>
-        
-        </nav>
+        <h1>Lambda Eats</h1>
+          <nav className="nav-links">
+            <Link to="/">Home</Link>
+            <Link to="/pizza" id="pizza-form">Order</Link>
+          </nav>
         </header>
       <Switch>
+        
+        <Route path="/pizza">
+          <Pizza 
+          values={formValues}
+          change={inputChange}
+          submit={formSubmit}
+          disabled={disabled}
+          errors={formErrors}
+          />
+        </Route>
         <Route path="/">
-      <Home />
-      </Route>
-      <Route path="/pizza">
-        <Pizza 
-        values={formValues}
-        change={inputChange}
-        submit={formSubmit}
-        disabled={disabled}
-        errors={formErrors}
-        />
-      </Route>
+          <Home />
+        </Route>
       </Switch>
     </>
   );
