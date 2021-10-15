@@ -35,8 +35,8 @@ export default function Pizza(props) {
             </div>
             <div>
                 <label>Choice of Size
-                    <select onChange={onChange} value={values.size} name="size">
-                        <option value="">Select a Size</option>
+                    <select id="size-dropdown" onChange={onChange} value={values.size} name="size">
+                        <option value="">-Select a Size-</option>
                         <option value="small">Small</option>
                         <option value="medium">Medium</option>
                         <option value="large">Large</option>
@@ -96,7 +96,7 @@ export default function Pizza(props) {
                 </label>
                 <div className='errors'>{errors.special}</div>
             </div>
-            <button id="submitBtn" disabled={disabled}>Submit Order</button>
+            <button id="order-button" disabled={disabled}>Submit Order</button>
         </form>
     )
 }
