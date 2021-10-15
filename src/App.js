@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Route, Switch } from 'react-router-dom'
 import Home from './Home';
 import Pizza from './Pizza';
+import OrderConfirmation from "./OrderConfirm";
 import * as yup from 'yup';
 import axios from "axios";
 import schema from "./formSchema";
@@ -37,7 +38,7 @@ const App = () => {
 
   const postNewPizza = newPizza => {
     axios.post('https://reqres.in/api/orders', newPizza)
-    .then(res => {
+    .then(res => { 
       setPizza([res.data, ...pizza]);
     }).catch(err => {
       console.error(err);
@@ -93,6 +94,13 @@ const App = () => {
           disabled={disabled}
           errors={formErrors}
           />
+        </Route>
+        <Route path="/pizza/orderconfirmation">
+          {pizza.map((order, idx) => {
+            return (
+              <OrderConfirmation id="pizza-order" key={order.idx} details={order} />
+            )
+          })}
         </Route>
         <Route path="/">
           <Home />

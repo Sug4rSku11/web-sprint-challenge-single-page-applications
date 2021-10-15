@@ -2,10 +2,11 @@ import React from 'react'
 
 //Pizza Form
 export default function Pizza(props) {
-    const { values, submit, change, errors, disabled } = props
+    const { values, submit, change, errors, disabled, } = props
     const onSubmit = evt => {
         evt.preventDefault()
         submit()
+        // values.id ? putPizza(values) : postPizza(values)
     }
     const onChange = evt => {
         const { name, value, checked, type } = evt.target;
@@ -17,6 +18,7 @@ export default function Pizza(props) {
 
     return (
         <form className="container" onSubmit={onSubmit}>
+            
             <div>
                 <h3>Build Your Own Pizza</h3>
             </div>
@@ -43,6 +45,7 @@ export default function Pizza(props) {
                     </select>
                 </label>
                 <div className='errors'>{errors.size}</div>
+                <h4>Toppings:</h4>
                 <label>Pepperoni
                     <input 
                         type="checkbox"
@@ -96,7 +99,7 @@ export default function Pizza(props) {
                 </label>
                 <div className='errors'>{errors.special}</div>
             </div>
-            <button id="order-button" disabled={disabled}>Submit Order</button>
+            <button id="order-button" disabled={disabled}>Add to Order</button>
         </form>
     )
 }
