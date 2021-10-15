@@ -1,12 +1,11 @@
 describe('Pizza Order Form', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000');
+        cy.visit('http://localhost:3000/pizza');
     })
-    const pizzaBtn = () => cy.get('button[id=order-pizza]')
     const nameInput = () => cy.get('input[name=name]');
-    
-    const checkBox = () => cy.get(`[type="checkbox"]`);
-    const submitBtn = () => cy.get("button[id='submitBtn']");
+    const dropDown = () => cy.get('[id=size-dropdown]')
+    const checkBox = () => cy.get(`[value="pepperoni"]`);
+    const orderBtn = () => cy.get("button[id='order-button']");
     const specialInput = () => cy.get('input[name=special]');
     
 
@@ -18,16 +17,14 @@ describe('Pizza Order Form', () => {
         expect({}).not.to.equal({}); //strict ===
         expect({}).to.eql({}); //not strict ==
     })
-    it('click on pizza button', () => {
-        pizzaBtn().click();
-    })
 
     it('the proper elements are showing', () => {
-        submitBtn().should('exist');
+        orderBtn().should('exist');
         nameInput().should('exist');
+        dropDown().should('exist');
         specialInput().should('exist');
         checkBox().should('exist');
-        cy.contains('Submit').should('exist');
+        cy.contains('Add to Order').should('exist');
     })
 
     describe('Filling out the inputs', () => {
@@ -38,7 +35,7 @@ describe('Pizza Order Form', () => {
         })
         //submit button should start out disabled
         it('submit button starts out disabled', () => {
-            submitBtn().should('be.disabled');
+            orderBtn().should('be.disabled');
         })
         //type in the inputs
         it('can type in the inputs', () => {
@@ -59,8 +56,8 @@ describe('Pizza Order Form', () => {
         it('the submit button enables when all inputs are filled out', () => {
             nameInput().type('Desiree');
             specialInput().type('extra cheese please');
-            submitBtn().should('not.be.disabled')
-            submitBtn().click()
+            orderBtn().should('not.be.disabled')
+            orderBtn().click()
         })
         
     })

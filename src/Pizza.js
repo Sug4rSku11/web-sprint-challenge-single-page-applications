@@ -1,11 +1,12 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 
 //Pizza Form
 export default function Pizza(props) {
     const { values, submit, change, errors, disabled, } = props
     const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
+        evt.preventDefault();
+        // submit()
         // values.id ? putPizza(values) : postPizza(values)
     }
     const onChange = evt => {
@@ -13,7 +14,7 @@ export default function Pizza(props) {
         const valueToUse = type === 'checkbox' ? checked : value;
         change(name, valueToUse);
     }
-
+    const history = useHistory();
 
 
     return (
@@ -99,7 +100,11 @@ export default function Pizza(props) {
                 </label>
                 <div className='errors'>{errors.special}</div>
             </div>
-            <button id="order-button" disabled={disabled}>Add to Order</button>
+            <button id="order-button" 
+            disabled={disabled}
+            type="submit"
+            onClick={evt => { history.push('/pizza-order'); submit(evt); }}
+            >Add to Order</button>
         </form>
     )
 }
